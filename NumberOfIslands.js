@@ -9,7 +9,6 @@ var numIslands = function(grid) {
         visited[i] = row;
     }
     
-    
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[0].length; j++) {
             if (grid[i][j] === "1" && visited[i][j] === 0) {
