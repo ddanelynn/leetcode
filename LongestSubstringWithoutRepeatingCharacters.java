@@ -27,6 +27,33 @@ public class LongestSubstringWithoutRepeatingCharacters {
   }
 
   public static void main(String args[]) {
-    System.out.println(lengthOfLongestSubstring("bbtablud"));
+    System.out.println(lengthOfLongestSubstring2("bbtablud"));
   }
+
+  public static int lengthOfLongestSubstring2(String s) {
+    int pointer = 0;
+    int largestLength = 0;
+    int currLength = 0;
+    int slider = 0;
+
+    if (s.length() < 1) {
+      return 0;
+    }
+
+    HashMap<Character, Integer> hm = new HashMap<>();
+    while (pointer < s.length()) {
+      if (hm.containsKey(s.charAt(pointer)) && hm.get(s.charAt(pointer)) >= slider) {
+        slider = hm.get(s.charAt(pointer)) + 1;
+        largestLength = largestLength > currLength ? largestLength : currLength;
+        currLength = pointer - hm.get(s.charAt(pointer));
+        hm.put(s.charAt(pointer), pointer);
+      } else {
+        hm.put(s.charAt(pointer), pointer);
+        currLength++;
+      }
+      pointer++;
+    }
+    return largestLength > currLength ? largestLength : currLength;
+  }
+
 }
