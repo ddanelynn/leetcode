@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Hashtable;
 
 public class CoinChange {
   public static int coinChange(int[] coins, int amount) {
@@ -11,11 +10,12 @@ public class CoinChange {
     Arrays.fill(dp, Integer.MAX_VALUE);
 
     for (int coin : coins) {
-      if (coin <= amount) dp[coin] = 1;
-    } 
+      if (coin <= amount)
+        dp[coin] = 1;
+    }
 
     for (int i = 1; i < amount + 1; i++) {
-      for (int coin: coins) {
+      for (int coin : coins) {
         if (i - coin > 0 && dp[i - coin] != Integer.MAX_VALUE) {
           dp[i] = Math.min(dp[i - coin] + 1, dp[i]);
         }
@@ -25,7 +25,7 @@ public class CoinChange {
     return (dp[amount] == Integer.MAX_VALUE) ? -1 : dp[amount];
   }
 
-  public static void main (String args[]) {
+  public static void main(String args[]) {
     int[] coins = new int[3];
     coins[0] = 1;
     coins[1] = 2;

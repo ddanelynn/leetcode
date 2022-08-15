@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class MergeTwoSortedList {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
@@ -28,13 +26,14 @@ public class MergeTwoSortedList {
             curr = curr.next;
             list2 = list2.next;
         }
-        
+
         return head.next;
     }
 
     class ListNode {
         int val;
         ListNode next;
+
         ListNode(int x) {
             val = x;
             next = null;

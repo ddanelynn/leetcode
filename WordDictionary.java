@@ -1,11 +1,10 @@
-import java.util.*;
-
 public class WordDictionary {
     Node root;
+
     public WordDictionary() {
         root = new Node();
     }
-    
+
     public void addWord(String word) {
         Node curr = root;
         for (int i = 0; i < word.length(); i++) {
@@ -20,7 +19,7 @@ public class WordDictionary {
             }
         }
     }
-    
+
     public boolean search(String word) {
         return helper(0, word, root);
     }
@@ -42,7 +41,7 @@ public class WordDictionary {
         } else if (curr.children[word.charAt(index) - 'a'] != null) {
             return helper(index + 1, word, node.children[word.charAt(index) - 'a']);
         }
-        return false; 
+        return false;
     }
 
     public static class Node {
@@ -50,17 +49,19 @@ public class WordDictionary {
         char c;
         int length;
         boolean hasChildren;
+
         public Node() {
-            this.children = new Node[26]; 
+            this.children = new Node[26];
             for (int i = 0; i < 26; i++) {
                 children[i] = null;
             }
             this.hasChildren = false;
             this.length = -1;
         }
+
         public Node(char c) {
             this.c = c;
-            this.children = new Node[26]; 
+            this.children = new Node[26];
             for (int i = 0; i < 26; i++) {
                 children[i] = null;
             }

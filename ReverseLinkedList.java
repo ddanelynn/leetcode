@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
         if (head == null) {
@@ -19,15 +17,24 @@ public class ReverseLinkedList {
             prev = curr;
             curr = temp;
         }
-        
+
         return prev;
     }
 
     public class ListNode {
         int val;
         ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 }

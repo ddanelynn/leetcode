@@ -1,7 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.io.*;
 
 public class IdenticalDistribution {
     public static int cardPackets(List<Integer> cardTypes) {
@@ -10,10 +9,10 @@ public class IdenticalDistribution {
         System.out.println(primeNumber);
         for (int i = 0; i < primeNumber.size(); i++) {
             int additionalCards = 0;
-            for (int card: cardTypes) {
+            for (int card : cardTypes) {
                 if (card > primeNumber.get(i)) {
                     if (card % primeNumber.get(i) != 0) {
-                        int division = card/primeNumber.get(i);
+                        int division = card / primeNumber.get(i);
                         int difference = primeNumber.get(i) * (division + 1) - card;
                         additionalCards += difference;
                     }
@@ -34,12 +33,13 @@ public class IdenticalDistribution {
 
     public static List<Integer> primeNumbersTill(int n) {
         return IntStream.rangeClosed(2, n)
-          .filter(x -> isPrime(x)).boxed()
-          .collect(Collectors.toList());
+                .filter(x -> isPrime(x)).boxed()
+                .collect(Collectors.toList());
     }
+
     private static boolean isPrime(int number) {
         return IntStream.rangeClosed(2, (int) (Math.sqrt(number)))
-          .allMatch(n -> number % n != 0);
+                .allMatch(n -> number % n != 0);
     }
 
     public static void main(String args[]) {

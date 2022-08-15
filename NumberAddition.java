@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.LinkedList;
 
 // 6, 7, 9, 8, 6
 // sort
@@ -11,7 +10,6 @@ import java.util.LinkedList;
 
 // 11, 11, 11, 11, 12
 // 12, 12, 12, 12, 12
-
 
 public class NumberAddition {
     public static int countAddtion(int[] nums) {
@@ -30,8 +28,8 @@ public class NumberAddition {
             }
             nums[0] = temp;
             // for (int i = 0; i < nums.length; i++) {
-            //     System.out.print(nums[i] + " ");
-                
+            // System.out.print(nums[i] + " ");
+
             // }
             // System.out.println();
         }
@@ -39,6 +37,6 @@ public class NumberAddition {
     }
 
     public static void main(String[] args) {
-        System.out.println(countAddtion(new int[]{5, 6, 8, 8, 5}));
+        System.out.println(countAddtion(new int[] { 5, 6, 8, 8, 5 }));
     }
 }

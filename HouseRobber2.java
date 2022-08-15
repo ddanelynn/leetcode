@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class HouseRobber2 {
     public int rob(int[] nums) {
         if (nums.length == 0) {
@@ -7,7 +5,7 @@ public class HouseRobber2 {
         } else if (nums.length == 1) {
             return nums[0];
         }
-        
+
         int rob1 = 0;
         int rob2 = 0;
 

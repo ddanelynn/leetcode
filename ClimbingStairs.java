@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class ClimbingStairs {
 
   // optimal solution
