@@ -25,4 +25,4 @@ def main():
     wordBreak("catcatcatcatcatcatcatcatcatcatccc", ["cat","catcatcatccc"])
 
 if __name__ == "__main__":
-        main()
+    main()
