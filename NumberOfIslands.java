@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class NumberOfIslands {
-  public int numIslands(char[][] grid) {
+  public static int numIslands(char[][] grid) {
     int[][] visited = new int[grid.length][grid[0].length];
     int count = 0;
 
@@ -9,23 +9,23 @@ public class NumberOfIslands {
       for (int j = 0; j < grid[0].length; j++) {
         if (grid[i][j] == '1' && visited[i][j] == 0) {
           Coordinate start = new Coordinate(i, j);
-          count++;  
+          count++;
           bfs(grid, start, visited);
         }
       }
     }
-    return count;    
+    return count;
   }
 
   public static void bfs(char[][] grid, Coordinate start, int[][] visited) {
-    int[] directionXArr = new int[] {0, 0, 1, -1};
-    int[] directionYArr = new int[] {1, -1, 0, 0};
+    int[] directionXArr = new int[] { 0, 0, 1, -1 };
+    int[] directionYArr = new int[] { 1, -1, 0, 0 };
 
     Queue<Coordinate> q = new LinkedList<>();
     q.add(start);
     visited[start.x][start.y] = 1;
 
-    while(!q.isEmpty()) {
+    while (!q.isEmpty()) {
       Coordinate curr = q.poll();
       for (int i = 0; i < 4; i++) {
         int newX = curr.x + directionXArr[i];
@@ -38,7 +38,7 @@ public class NumberOfIslands {
               q.add(newCoor);
             }
           }
-        } 
+        }
       }
     }
   }
@@ -46,9 +46,22 @@ public class NumberOfIslands {
   public static class Coordinate {
     int x;
     int y;
+
     Coordinate(int x, int y) {
       this.x = x;
       this.y = y;
     }
+  }
+
+  public static void main(String[] args) {
+    char[] row1 = { '1', '1', '1', '1', '0' };
+    char[] row2 = { '1', '1', '0', '1', '0' };
+    char[] row3 = { '1', '1', '0', '0', '0' };
+    char[] row4 = { '0', '0', '0', '0', '0' };
+
+    char[][] grid = { row1, row2, row3, row4 };
+
+    numIslands(grid);
+
   }
 }
