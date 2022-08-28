@@ -5,7 +5,7 @@ public class MaxProductSubArray {
         int right = 0;
         int currProd = 1;
 
-        while (right < arr.length && left < arr.length) {
+        while (right < arr.length) {
             currProd *= arr[right];
             if (currProd <= max) {
                 count += (right - left + 1);
