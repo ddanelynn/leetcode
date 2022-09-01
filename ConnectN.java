@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ConnectFour {
+public class ConnectN {
 
     public enum Colour {
         WHITE,
@@ -10,11 +10,13 @@ public class ConnectFour {
     public static class Board {
         int width;
         int height;
+        int winCount;
         ArrayList<ArrayList<Colour>> board;
 
-        public Board(int width, int height) {
+        public Board(int width, int height, int winCount) {
             this.width = width;
             this.height = height;
+            this.winCount = winCount;
             this.board = new ArrayList<>();
 
             for (int i = 0; i < width; i++) {
@@ -27,7 +29,7 @@ public class ConnectFour {
             this.board.get(column - 1).add(colour);
         }
 
-        public boolean checkWin(int column, int winCount) {
+        public boolean checkWin(int column) {
             int height = this.board.get(column - 1).size();
             Colour colour = this.board.get(column - 1).get(height - 1);
             int horizontal = this.checkLeft(column - 1, height - 1, colour)
@@ -38,7 +40,10 @@ public class ConnectFour {
             int diagonal2 = this.checkLeftDown(column - 1, height - 1, colour)
                     + this.checkRightUp(column - 1, height - 1, colour) + 1;
 
-            if (horizontal == winCount || vertical == winCount || diagonal1 == winCount || diagonal2 == winCount) {
+            if (horizontal == this.winCount ||
+                    vertical == this.winCount ||
+                    diagonal1 == this.winCount ||
+                    diagonal2 == this.winCount) {
                 return true;
             }
 
@@ -196,41 +201,83 @@ public class ConnectFour {
         return "BLACK";
     }
 
-    public static boolean validateMove(int column, Board board) {
-        if (column > board.width || board.board.get(column - 1).size() == board.height) {
-            return false;
+    public static int validateMove(Scanner sc, Board board, String prompt) {
+        System.out.println(prompt);
+        String input = sc.nextLine();
+        String regex = "\\d+";
+
+        while (!input.matches(regex)) {
+            System.out.println("Invalid input. Please enter an integer.");
+            System.out.println(prompt);
+            input = sc.nextLine();
         }
-        return true;
+        int column = Integer.parseInt(input);
+        while (column > board.width || board.board.get(column - 1).size() == board.height) {
+            System.out.println("The column is full or the column is invalid.");
+            System.out.println(prompt);
+            input = sc.nextLine();
+            while (!input.matches(regex)) {
+                System.out.println("Invalid input. Please enter an integer.");
+                System.out.println(prompt);
+                input = sc.nextLine();
+            }
+            column = Integer.parseInt(input);
+        }
+        return column;
+    }
+
+    public static Board gameSetUp(Scanner sc) {
+        System.out.println("Welcome to Connect N Game! Let's set up the game!");
+
+        int boardWidth = 0;
+        int boardHeight = 0;
+        int winCount = 1;
+
+        while (winCount > Math.max(boardWidth, boardHeight)) {
+            if (boardWidth != 0) {
+                System.out.println(
+                        "Your connection count has to be smaller than either number of columns or number of rows.");
+            }
+
+            boardWidth = handleInput(sc, "How many columns do you want your board to have?");
+            boardHeight = handleInput(sc, "How many rows do you want your board to have?");
+            winCount = handleInput(sc, "What would you want your connection count to be?");
+        }
+
+        System.out.println("Thank you for your input. Game set up is done!");
+        System.out.println("Your board will look like this:");
+        Board game = new Board(boardWidth, boardHeight, winCount);
+        game.printBoard();
+        return game;
+    }
+
+    public static int handleInput(Scanner sc, String prompt) {
+        System.out.println(prompt);
+        String regex = "\\d+";
+        String input = sc.nextLine();
+        while (!input.matches(regex)) {
+            System.out.println("Invalid input. Please enter an integer.");
+            System.out.println(prompt);
+            input = sc.nextLine();
+        }
+        return Integer.parseInt(input);
     }
 
     public static void main(String args[]) {
-        System.out.println("Welcome to Connect N Game! Let's set up the game!");
         Scanner sc = new Scanner(System.in);
-        System.out.println("How many columns do you want your board to have?");
-        int boardWidth = Integer.parseInt(sc.nextLine());
-        System.out.println("How many rows do you want your board to have?");
-        int boardHeight = Integer.parseInt(sc.nextLine());
-        System.out.println("What would you want your connection count to be?");
-        int winCount = Integer.parseInt(sc.nextLine());
-        System.out.println("Thank you for your input. Game set up is done!");
+        Board game = gameSetUp(sc);
+
         int pinNum = 0;
         Colour colour = Colour.BLACK;
         boolean hasWinner = false;
 
-        Board game = new Board(boardWidth, boardHeight);
-
-        while (pinNum < boardHeight * boardWidth) {
+        while (pinNum < game.width * game.height) {
             System.out.println(
-                    "It's " + colourToString(colour) + "'s turn, Which column do you want to drop your pin at?");
-            int column = Integer.parseInt(sc.nextLine());
-            while (!validateMove(column, game)) {
-                System.out.println(
-                        "This column is full, or your coloumn is invalid, please try again! Which column do you want to drop your pin at?");
-                column = Integer.parseInt(sc.nextLine());
-            }
+                    "It's " + colourToString(colour) + "'s turn!");
+            int column = validateMove(sc, game, "Which column do you want to drop your pin at?");
             game.insertPin(column, colour);
             game.printBoard();
-            if (game.checkWin(column, winCount)) {
+            if (game.checkWin(column)) {
                 System.out.println(colourToString(colour) + " won!!");
                 hasWinner = true;
                 break;
