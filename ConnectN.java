@@ -204,10 +204,10 @@ public class ConnectN {
     public static int validateMove(Scanner sc, Board board, String prompt) {
         System.out.println(prompt);
         String input = sc.nextLine();
-        String regex = "\\d+";
+        String regex = "[1-9][0-9]*";
 
         while (!input.matches(regex)) {
-            System.out.println("Invalid input. Please enter an integer.");
+            System.out.println("Invalid input. Please enter a positive integer.");
             System.out.println(prompt);
             input = sc.nextLine();
         }
@@ -217,7 +217,7 @@ public class ConnectN {
             System.out.println(prompt);
             input = sc.nextLine();
             while (!input.matches(regex)) {
-                System.out.println("Invalid input. Please enter an integer.");
+                System.out.println("Invalid input. Please enter a positive integer.");
                 System.out.println(prompt);
                 input = sc.nextLine();
             }
@@ -253,10 +253,10 @@ public class ConnectN {
 
     public static int handleInput(Scanner sc, String prompt) {
         System.out.println(prompt);
-        String regex = "\\d+";
+        String regex = "[1-9][0-9]*";
         String input = sc.nextLine();
         while (!input.matches(regex)) {
-            System.out.println("Invalid input. Please enter an integer.");
+            System.out.println("Invalid input. Please enter a positive integer.");
             System.out.println(prompt);
             input = sc.nextLine();
         }
@@ -290,6 +290,5 @@ public class ConnectN {
         if (!hasWinner) {
             System.out.println("End of Game! Draw!");
         }
-
     }
 }
