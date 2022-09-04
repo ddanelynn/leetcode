@@ -58,6 +58,9 @@ public class Tetris {
                 int rowDiff = p.baseLineCoordinates.get(stoppingCol - c) - p.baseLineCoordinates.get(i - c);
                 for (int j = 0; j < p.coloumnBlockNum.get(i - c); j++) {
                     int checkRow = stoppingRow - rowDiff + j;
+                    if (checkRow >= row) {
+                        return false;
+                    }
                     board[checkRow][i] = p;
                     if (checkRow > highAffected) {
                         highAffected = checkRow;
