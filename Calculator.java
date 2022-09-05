@@ -4,10 +4,6 @@ public class Calculator {
     public static String[] helper(String expression) {
         // (2 + (3 - 4))
         String[] result = expression.split(" ");
-        for (int i = 0; i < expression.length(); i++) {
-            char c = expression.charAt(i);
-
-        }
         return result;
     }
 
