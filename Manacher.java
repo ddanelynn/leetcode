@@ -1,34 +1,43 @@
 public class Manacher {
     public static String longestPalindrome(String s) {
-        String updatedString = updateString(s);
+        // Update the string to put hash "#" at the beginning, end and in between each
+        // character
+        String updatedString = getUpdatedString(s);
+        // Length of the array that will store the window of palindromic substring
         int length = 2 * s.length() + 1;
+        // Array to store the length of each palindrome centered at each element
         int[] p = new int[length];
-        // current center
+        // Current center of the longest palindromic string
         int c = 0;
-        // right boundary
+        // Right boundary of the longest palindromic string
         int r = 0;
+        // Maximum length of the substring
         int maxLength = 0;
+        // Position index
         int position = -1;
-
         for (int i = 0; i < length; i++) {
+            // Mirror of the current index
             int mirror = 2 * c - i;
+            // Check if the mirror is outside the left boundary of current longest
+            // palindrome
             if (i < r) {
                 p[i] = Math.min(r - i, p[mirror]);
             }
-
+            // Indices of the characters to be compared
             int a = i + (1 + p[i]);
             int b = i - (1 + p[i]);
+            // Expand the window
             while (a < length && b >= 0 && updatedString.charAt(a) == updatedString.charAt(b)) {
                 p[i]++;
                 a++;
                 b--;
             }
-
+            // If the expanded palindrome is expanding beyond the right boundary of
+            // the current longest palindrome, then update c and r
             if (i + p[i] > r) {
                 c = i;
                 r = i + p[i];
             }
-
             if (maxLength < p[i]) {
                 maxLength = p[i];
                 position = i;
@@ -44,7 +53,7 @@ public class Manacher {
         return result.toString();
     }
 
-    public static String updateString(String s) {
+    private static String getUpdatedString(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             sb.append("#").append(s.charAt(i));
